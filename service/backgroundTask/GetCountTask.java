@@ -6,7 +6,7 @@ import android.os.Handler;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 
-public abstract class GetCountTask extends AuthorizedTask {
+public abstract class GetCountTask extends AuthenticatedTask {
 
     public static final String COUNT_KEY = "count";
 
@@ -35,7 +35,7 @@ public abstract class GetCountTask extends AuthorizedTask {
     protected abstract int runCountTask();
 
     @Override
-    protected void loadBundle(Bundle msgBundle) {
+    protected void loadSuccessBundle(Bundle msgBundle) {
         msgBundle.putInt(COUNT_KEY, count);
     }
 }

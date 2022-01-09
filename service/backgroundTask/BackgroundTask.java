@@ -5,8 +5,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.util.FakeData;
@@ -31,7 +29,6 @@ public abstract class BackgroundTask implements Runnable {
     public void run() {
         try {
             runTask();
-            sendSuccessMessage();
         } catch (Exception ex) {
             Log.e(LOG_TAG, ex.getMessage(), ex);
             sendExceptionMessage(ex);
@@ -44,31 +41,49 @@ public abstract class BackgroundTask implements Runnable {
         return new FakeData();
     }
 
-    private void sendSuccessMessage() {
-        Bundle msgBundle = createMessageBundle(true);
-        loadBundle(msgBundle);
+    /**
+     * Called by a Task's runTask method when it is successful.
+     *
+     * This method is public to make it accessible to test cases
+     */
+    public void sendSuccessMessage() {
+        Bundle msgBundle = new Bundle();
+        msgBundle.putBoolean(SUCCESS_KEY, true);
+        loadSuccessBundle(msgBundle);
         sendMessage(msgBundle);
     }
 
-    protected abstract void loadBundle(Bundle msgBundle);
-
-    protected void sendFailedMessage(String message) {
-        Bundle msgBundle = createMessageBundle(false);
-        msgBundle.putString(MESSAGE_KEY, message);
+    /**
+     * Called by a Task's runTask method when it is not successful.
+     *
+     * This method is public to make it accessible to test cases
+     */
+    public void sendFailedMessage(String errorMessage) {
+        Bundle msgBundle = new Bundle();
+        msgBundle.putBoolean(SUCCESS_KEY, false);
+        msgBundle.putString(MESSAGE_KEY, errorMessage);
         sendMessage(msgBundle);
     }
 
-    protected void sendExceptionMessage(Exception exception) {
-        Bundle msgBundle = createMessageBundle(false);
+    /**
+     * Called by a Task's runTask method when an exception occurs.
+     *
+     * This method is public to make it accessible to test cases
+     */
+    public void sendExceptionMessage(Exception exception) {
+        Bundle msgBundle = new Bundle();
+        msgBundle.putBoolean(SUCCESS_KEY, false);
         msgBundle.putSerializable(EXCEPTION_KEY, exception);
         sendMessage(msgBundle);
     }
 
-    @NotNull
-    private Bundle createMessageBundle(boolean value) {
-        Bundle msgBundle = new Bundle();
-        msgBundle.putBoolean(SUCCESS_KEY, value);
-        return msgBundle;
+    /**
+     * Add additional information during a successful task to a Bundle
+     * @param msgBundle
+     */
+    protected void loadSuccessBundle(Bundle msgBundle) {
+        // By default, do nothing
+        return;
     }
 
     private void sendMessage(Bundle msgBundle) {

@@ -9,7 +9,7 @@ import edu.byu.cs.tweeter.model.domain.User;
 /**
  * Background task that removes a following relationship between two users.
  */
-public class UnfollowTask extends AuthorizedTask {
+public class UnfollowTask extends AuthenticatedTask {
 
     /**
      * The user that is being followed.
@@ -28,7 +28,7 @@ public class UnfollowTask extends AuthorizedTask {
     }
 
     @Override
-    protected void loadBundle(Bundle msgBundle) {
+    protected void loadSuccessBundle(Bundle msgBundle) {
         // Nothing to load
     }
 }

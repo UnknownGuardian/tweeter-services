@@ -9,7 +9,7 @@ import edu.byu.cs.tweeter.model.domain.User;
 /**
  * Background task that establishes a following relationship between two users.
  */
-public class FollowTask extends AuthorizedTask {
+public class FollowTask extends AuthenticatedTask {
     /**
      * The user that is being followed.
      */
@@ -27,7 +27,7 @@ public class FollowTask extends AuthorizedTask {
     }
 
     @Override
-    protected void loadBundle(Bundle msgBundle) {
+    protected void loadSuccessBundle(Bundle msgBundle) {
         // Nothing to load
     }
 }

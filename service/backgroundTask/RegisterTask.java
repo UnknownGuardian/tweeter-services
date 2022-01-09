@@ -9,7 +9,7 @@ import edu.byu.cs.tweeter.util.Pair;
 /**
  * Background task that creates a new user account and logs in the new user (i.e., starts a session).
  */
-public class RegisterTask extends AuthenticationTask {
+public class RegisterTask extends AuthenticateTask {
 
     /**
      * The user's first name.

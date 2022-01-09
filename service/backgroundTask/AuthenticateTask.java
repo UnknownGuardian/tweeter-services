@@ -9,7 +9,7 @@ import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.util.Pair;
 
-public abstract class AuthenticationTask extends BackgroundTask {
+public abstract class AuthenticateTask extends BackgroundTask {
 
     public static final String USER_KEY = "user";
     public static final String AUTH_TOKEN_KEY = "auth-token";
@@ -28,7 +28,7 @@ public abstract class AuthenticationTask extends BackgroundTask {
      */
     protected final String password;
 
-    protected AuthenticationTask(Handler messageHandler, String username, String password) {
+    protected AuthenticateTask(Handler messageHandler, String username, String password) {
         super(messageHandler);
         this.username = username;
         this.password = password;
@@ -41,14 +41,12 @@ public abstract class AuthenticationTask extends BackgroundTask {
 
         authenticatedUser = loginResult.getFirst();
         authToken = loginResult.getSecond();
-
-        BackgroundTaskUtils.loadImage(authenticatedUser);
     }
 
     protected abstract Pair<User, AuthToken> runAuthenticationTask();
 
     @Override
-    protected void loadBundle(Bundle msgBundle) {
+    protected void loadSuccessBundle(Bundle msgBundle) {
         msgBundle.putSerializable(USER_KEY, authenticatedUser);
         msgBundle.putSerializable(AUTH_TOKEN_KEY, authToken);
     }

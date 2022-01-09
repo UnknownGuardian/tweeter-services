@@ -9,7 +9,7 @@ import edu.byu.cs.tweeter.model.domain.User;
 /**
  * Background task that returns the profile for a specified user.
  */
-public class GetUserTask extends AuthorizedTask {
+public class GetUserTask extends AuthenticatedTask {
 
     public static final String USER_KEY = "user";
 
@@ -31,7 +31,7 @@ public class GetUserTask extends AuthorizedTask {
     }
 
     @Override
-    protected void loadBundle(Bundle msgBundle) {
+    protected void loadSuccessBundle(Bundle msgBundle) {
         msgBundle.putSerializable(USER_KEY, user);
     }
 

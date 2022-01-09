@@ -2,6 +2,7 @@ package edu.byu.cs.tweeter.client.model.service.backgroundTask.handler;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ public abstract class BackgroundTaskHandler<T extends ServiceObserver> extends H
     private final T observer;
 
     public BackgroundTaskHandler(T observer) {
+        super(Looper.getMainLooper());
         this.observer = observer;
     }
 
@@ -24,7 +26,7 @@ public abstract class BackgroundTaskHandler<T extends ServiceObserver> extends H
         if (success) {
             handleSuccessMessage(observer, msg.getData());
         } else if (msg.getData().containsKey(BackgroundTask.MESSAGE_KEY)) {
-            String message = getFailedMessagePrefix() + ": " + msg.getData().getString(GetFollowersCountTask.MESSAGE_KEY);
+            String message = getFailedMessagePrefix() + ": " + msg.getData().getString(BackgroundTask.MESSAGE_KEY);
             observer.handleFailure(message);
         } else if (msg.getData().containsKey(BackgroundTask.EXCEPTION_KEY)) {
             Exception ex = (Exception) msg.getData().getSerializable(BackgroundTask.EXCEPTION_KEY);

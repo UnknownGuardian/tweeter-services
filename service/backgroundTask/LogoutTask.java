@@ -8,7 +8,7 @@ import edu.byu.cs.tweeter.model.domain.AuthToken;
 /**
  * Background task that logs out a user (i.e., ends a session).
  */
-public class LogoutTask extends AuthorizedTask {
+public class LogoutTask extends AuthenticatedTask {
 
     public LogoutTask(AuthToken authToken, Handler messageHandler) {
         super(authToken, messageHandler);
@@ -21,7 +21,7 @@ public class LogoutTask extends AuthorizedTask {
     }
 
     @Override
-    protected void loadBundle(Bundle msgBundle) {
+    protected void loadSuccessBundle(Bundle msgBundle) {
         // Nothing to load
     }
 }

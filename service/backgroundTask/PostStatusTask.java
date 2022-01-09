@@ -9,7 +9,7 @@ import edu.byu.cs.tweeter.model.domain.Status;
 /**
  * Background task that posts a new status sent by a user.
  */
-public class PostStatusTask extends AuthorizedTask {
+public class PostStatusTask extends AuthenticatedTask {
 
     /**
      * The new status being sent. Contains all properties of the status,
@@ -29,7 +29,7 @@ public class PostStatusTask extends AuthorizedTask {
     }
 
     @Override
-    protected void loadBundle(Bundle msgBundle) {
+    protected void loadSuccessBundle(Bundle msgBundle) {
         // Nothing to load
     }
 }
