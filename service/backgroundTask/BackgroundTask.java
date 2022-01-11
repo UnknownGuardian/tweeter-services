@@ -79,11 +79,10 @@ public abstract class BackgroundTask implements Runnable {
 
     /**
      * Add additional information during a successful task to a Bundle
-     * @param msgBundle
+     * @param msgBundle The bundle send to the handler with the results of the task
      */
     protected void loadSuccessBundle(Bundle msgBundle) {
         // By default, do nothing
-        return;
     }
 
     private void sendMessage(Bundle msgBundle) {

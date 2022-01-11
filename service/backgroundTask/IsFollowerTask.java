@@ -36,6 +36,11 @@ public class IsFollowerTask extends AuthenticatedTask {
     @Override
     protected void runTask() {
         isFollower = new Random().nextInt() > 0;
+
+        // Call sendSuccessMessage if successful
+        sendSuccessMessage();
+        // or call sendFailedMessage if not successful
+        // sendFailedMessage()
     }
 
     @Override

@@ -69,6 +69,11 @@ public abstract class PagedTask<T> extends AuthenticatedTask {
 
         items = pageOfItems.getFirst();
         hasMorePages = pageOfItems.getSecond();
+
+        // Call sendSuccessMessage if successful
+        sendSuccessMessage();
+        // or call sendFailedMessage if not successful
+        // sendFailedMessage()
     }
 
     protected abstract Pair<List<T>, Boolean> getItems();

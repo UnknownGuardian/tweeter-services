@@ -28,6 +28,11 @@ public class GetUserTask extends AuthenticatedTask {
     @Override
     protected void runTask() {
         user = getUser();
+
+        // Call sendSuccessMessage if successful
+        sendSuccessMessage();
+        // or call sendFailedMessage if not successful
+        // sendFailedMessage()
     }
 
     @Override
